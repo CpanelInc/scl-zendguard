@@ -10,24 +10,32 @@
 # This makes the ea-php<ver>-build macro stuff work
 %scl_package_override
 
+# OBS builds the 32-bit targets as arch 'i586', but 32-bit archive is
+# named 'i386'.  Other archives are named as the actual architecture.
+%if "%{_arch}" == "i586"
+%global archive_arch i386
+%else
+%global archive_arch %{_arch}
+%endif
+
 # The different PHP versions are actually supported by different
 # versions of the loader, so we'll have different versions and source
 # files depending on our PHP.
 %if "%{php_version}" == "5.6"
-%global zend_source  zend-loader-php5.6-linux-x86_64.tar.gz
-%global zend_srcdir  zend-loader-php5.6-linux-x86_64
+%global zend_source  zend-loader-php5.6-linux-%{archive_arch}.tar.gz
+%global zend_srcdir  zend-loader-php5.6-linux-%{archive_arch}
 %global zend_sodir   ./
 %global use_zend_opcache 1
 %endif
 %if "%{php_version}" == "5.5"
-%global zend_source  zend-loader-php5.5-linux-x86_64.tar.gz
-%global zend_srcdir  zend-loader-php5.5-linux-x86_64
+%global zend_source  zend-loader-php5.5-linux-%{archive_arch}.tar.gz
+%global zend_srcdir  zend-loader-php5.5-linux-%{archive_arch}
 %global zend_sodir   ./
 %global use_zend_opcache 1
 %endif
 %if "%{php_version}" == "5.4"
-%global zend_source  ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz
-%global zend_srcdir  ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64
+%global zend_source  ZendGuardLoader-70429-PHP-5.4-linux-glibc23-%{archive_arch}.tar.gz
+%global zend_srcdir  ZendGuardLoader-70429-PHP-5.4-linux-glibc23-%{archive_arch}
 %global zend_sodir   php-5.4.x/
 %global use_zend_opcache 0
 %endif
