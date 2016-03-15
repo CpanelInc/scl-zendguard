@@ -1,14 +1,18 @@
 %define debug_package %{nil}
 
-# Package namespaces
-%global ns_name ea
-%global ns_dir /opt/cpanel
-%global _scl_prefix %ns_dir
+%global extension_type php
+%global upstream_name zendguard
 
-%scl_package %scl
+%{?scl:%global _scl_prefix /opt/cpanel}
+%{?scl:%scl_package %{extension_type}-%{upstream_name}}
+%{?scl:BuildRequires: scl-utils-build}
+%{?scl:Requires: %scl_runtime}
+%{!?scl:%global pkg_name %{name}}
+%{?scl:%scl_package_override}
 
-# This makes the ea-php<ver>-build macro stuff work
-%scl_package_override
+# must redefine this in the spec file because OBS doesn't know how
+# to handle macros in BuildRequires statements
+%{?scl:%global scl_prefix %{scl}-}
 
 # OBS builds the 32-bit targets as arch 'i586', but 32-bit archive is
 # named 'i386'.  Other archives are named as the actual architecture.
@@ -40,22 +44,22 @@
 %global use_zend_opcache 0
 %endif
 
-Name:    %{?scl_prefix}php-zendguard
+Name:    %{?scl_prefix}%{extension_type}-%{upstream_name}
 Vendor:  Zend Technologies, Ltd.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Redistributable
 Group:   Development/Languages
 URL:     http://www.zend.com/en/products/guard/downloads
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # We've defined the source archive above, since it is dependent on PHP
 # version.
 Source:  %{zend_source}
 
-BuildRequires: scl-utils-build
-BuildRequires: %{?scl_prefix}scldevel
-BuildRequires: %{?scl_prefix}build
+%{?scl:BuildRequires: %{?scl_prefix}scldevel}
+%{?scl:BuildRequires: %{?scl_prefix}build}
 BuildRequires: %{?scl_prefix}php-devel
 Requires:      %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:      %{?scl_prefix}php(api) = %{php_core_api}
