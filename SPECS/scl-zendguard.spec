@@ -48,7 +48,9 @@ Name:    %{?scl_prefix}%{extension_type}-%{upstream_name}
 Vendor:  Zend Technologies, Ltd.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
-Release: 2%{?dist}
+# Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
+%define release_prefix 4
+Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
 URL:     http://www.zend.com/en/products/guard/downloads
@@ -114,5 +116,8 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Mon Jun 20 2016 Dan Muey <dan@cpanel.net> - 3.3-4
+- EA-4383: Update Release value to OBS-proof versioning
+
 * Mon Jul 20 2015 Trinity Quirk <trinity.quirk@cpanel.net> - 3.3-1
 - Initial creation
