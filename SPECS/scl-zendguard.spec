@@ -49,7 +49,7 @@ Vendor:  Zend Technologies, Ltd.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
-%define release_prefix 4
+%define release_prefix 5
 Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
