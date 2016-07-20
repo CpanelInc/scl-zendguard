@@ -48,7 +48,9 @@ Name:    %{?scl_prefix}%{extension_type}-%{upstream_name}
 Vendor:  Zend Technologies, Ltd.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
-Release: 2%{?dist}
+# Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
+%define release_prefix 5
+Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
 URL:     http://www.zend.com/en/products/guard/downloads
@@ -64,7 +66,7 @@ BuildRequires: %{?scl_prefix}php-devel
 Requires:      %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:      %{?scl_prefix}php(api) = %{php_core_api}
 %if %{use_zend_opcache}
-Conflicts:     %{?scl_prefix}php-opcache
+Obsoletes:     %{?scl_prefix}php-opcache
 %endif
 
 # Don't provide extensions as shared library resources
@@ -114,5 +116,11 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Wed Jun 29 2016 David Nielson <david.nielson@cpanel.net> - 3.3-5
+- SWAT-28: Obsolete opcache instead of conflicting with it
+
+* Mon Jun 20 2016 Dan Muey <dan@cpanel.net> - 3.3-4
+- EA-4383: Update Release value to OBS-proof versioning
+
 * Mon Jul 20 2015 Trinity Quirk <trinity.quirk@cpanel.net> - 3.3-1
 - Initial creation
