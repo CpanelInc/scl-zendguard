@@ -45,11 +45,11 @@
 %endif
 
 Name:    %{?scl_prefix}%{extension_type}-%{upstream_name}
-Vendor:  Zend Technologies, Ltd.
+Vendor:  cPanel, Inc.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
-%define release_prefix 5
+%define release_prefix 6
 Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
@@ -116,6 +116,9 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Fri Dec 16 2016 Cory McIntire <cory@cpanel.net> - 3.3-6
+- Updated Vendor field in the SPEC file
+
 * Wed Jun 29 2016 David Nielson <david.nielson@cpanel.net> - 3.3-5
 - SWAT-28: Obsolete opcache instead of conflicting with it
 
