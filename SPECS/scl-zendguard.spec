@@ -49,7 +49,7 @@ Vendor:  cPanel, Inc.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
-%define release_prefix 7
+%define release_prefix 8
 Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
@@ -65,6 +65,7 @@ Source:  %{zend_source}
 BuildRequires: %{?scl_prefix}php-devel
 Requires:      %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:      %{?scl_prefix}php(api) = %{php_core_api}
+Requires:      %{?scl_prefix}php-cli
 %if %{use_zend_opcache}
 Conflicts:     %{?scl_prefix}php-opcache
 %endif
@@ -116,6 +117,9 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Tue Feb 18 2020 Tim Mullin <tim@cpanel.net> - 3.3-8
+- EA-8865: Add php-cli as a dependency
+
 * Wed Feb 01 2017 Dan Muey <dan@cpanel.net> - 3.3-7
 - EA-5028 via EA-5900: reinstate opcache conflict
 - (the obsoletes is problematic and there is a
