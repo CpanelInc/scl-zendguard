@@ -49,7 +49,7 @@ Vendor:  cPanel, Inc.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
-%define release_prefix 8
+%define release_prefix 9
 Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
@@ -117,6 +117,9 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 3.3-9
+- ZC-9589: Update DISABLE_BUILD to match OBS
+
 * Tue Feb 18 2020 Tim Mullin <tim@cpanel.net> - 3.3-8
 - EA-8865: Add php-cli as a dependency
 
