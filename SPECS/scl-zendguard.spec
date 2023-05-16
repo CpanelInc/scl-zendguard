@@ -1,5 +1,3 @@
-%define debug_package %{nil}
-
 %global extension_type php
 %global upstream_name zendguard
 
@@ -49,7 +47,7 @@ Vendor:  cPanel, Inc.
 Summary: Loader for Zend Guard-encoded PHP files
 Version: 3.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4596 for more details
-%define release_prefix 9
+%define release_prefix 10
 Release: %{release_prefix}%{?dist}.cpanel
 License: Redistributable
 Group:   Development/Languages
@@ -117,6 +115,9 @@ echo 'zend_extension="%{php_extdir}/opcache.so"' >> $RPM_BUILD_ROOT%{php_inidir}
 %endif
 
 %changelog
+* Wed May 10 2023 Brian Mendoza <brian.mendoza@cpanel.net> - 3.3-10
+- ZC-10936: Clean up Makefile and remove debug-package-nil
+
 * Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 3.3-9
 - ZC-9589: Update DISABLE_BUILD to match OBS
 
